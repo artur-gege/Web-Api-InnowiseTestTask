@@ -1,3 +1,5 @@
+using Microsoft.EntityFrameworkCore;
+using WEB_API_Innowise_TestTask.Data;
 
 namespace WEB_API_Innowise_TestTask
 {
@@ -14,6 +16,9 @@ namespace WEB_API_Innowise_TestTask
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
 
+            builder.Services.AddDbContext<ApplicationDbContext>(options =>
+                options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+
             var app = builder.Build();
 
             // Configure the HTTP request pipeline.
@@ -26,7 +31,6 @@ namespace WEB_API_Innowise_TestTask
             app.UseHttpsRedirection();
 
             app.UseAuthorization();
-
 
             app.MapControllers();
 
